@@ -1,0 +1,126 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Traffic Dashboard</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+</head>
+
+<body>
+
+    <div class="dashboard">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h2>Admin Panel</h2>
+
+            <nav>
+                <a href="/admin" class="active">Dashboard</a>
+                <a href="/">E-Commerce Website</a>
+            </nav>
+
+            <div class="sidebar-footer">
+                Traffic Monitoring System
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+
+            <header class="topbar">
+                <div>
+                    <h1>Traffic Dashboard</h1>
+                    <p>Monitor website visitors and their locations</p>
+                </div>
+
+                <span class="status">System Online</span>
+            </header>
+
+            <!-- Statistics Cards -->
+            <section class="stats-grid">
+
+                <div class="stat-card">
+                    <h3>Total Visitors</h3>
+                    <p id="totalVisitors">0</p>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Unique Visitors</h3>
+                    <p id="uniqueVisitors">0</p>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Real Visitors</h3>
+                    <p id="realVisitors">0</p>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Simulated Visitors</h3>
+                    <p id="simulatedVisitors">0</p>
+                </div>
+
+            </section>
+
+            <!-- Country Statistics -->
+            <section class="panel">
+                <h2>Visitors by Country</h2>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Country</th>
+                                <th>Country Code</th>
+                                <th>Visitors</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="countryTable">
+                            <tr>
+                                <td colspan="3">Loading country data...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Recent Visitors -->
+            <section class="panel">
+                <h2>Recent Visitor Activity</h2>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>IP Address</th>
+                                <th>Country</th>
+                                <th>City</th>
+                                <th>Page</th>
+                                <th>Type</th>
+                                <th>Timestamp</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="recentTable">
+                            <tr>
+                                <td colspan="6">Loading visitor data...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <footer>
+                Admin Traffic Monitoring Dashboard
+            </footer>
+
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='admin.js') }}"></script>
+
+</body>
+</html>

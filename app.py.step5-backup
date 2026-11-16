@@ -1,0 +1,81 @@
+
+from flask import Flask, jsonify, request
+from database.db import get_db_connection, init_db
+from database.geolocation import get_ip_location
+
+app = Flask(__name__)
+
+init_db()
+
+
+@app.route("/")
+def home():
+    return "E-Commerce Website Backend"
+
+
+@app.route("/api/test", methods=["GET"])
+def test_api():
+    return jsonify({
+        "message": "API is working successfully",
+        "status": "success"
+    })
+
+
+@app.after_request
+def log_visitor(response):
+
+    if request.path.startswith("/static/"):
+        return response
+
+    ip_address = request.remote_addr or "unknown"
+
+    conn = get_db_connection()
+
+    # Check whether this IP already has location information
+    existing = conn.execute("""
+        SELECT country, country_code, city, region,
+               latitude, longitude
+        FROM visitors
+        WHERE ip_address = ?
+          AND country IS NOT NULL
+        LIMIT 1
+    """, (ip_address,)).fetchone()
+
+    if existing:
+        location = dict(existing)
+    else:
+        location = get_ip_location(ip_address) or {}
+
+    conn.execute("""
+        INSERT INTO visitors (
+            ip_address,
+            country,
+            country_code,
+            city,
+            region,
+            latitude,
+            longitude,
+            requested_url,
+            is_simulated
+        )
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, 0)
+    """, (
+        ip_address,
+        location.get("country"),
+        location.get("country_code"),
+        location.get("city"),
+        location.get("region"),
+        location.get("latitude"),
+        location.get("longitude"),
+        request.path
+    ))
+
+    conn.commit()
+    conn.close()
+
+    return response
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
+
