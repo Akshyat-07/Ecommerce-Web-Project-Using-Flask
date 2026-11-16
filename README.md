@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # ShopLite — Full-Stack E-Commerce (Part 1)
 
 A minimal product-listing website built to meet the Part 1 requirements of the assignment.
@@ -130,3 +131,7 @@ ecommerce_part1/
 - Product images are loaded from external image URLs, so an internet connection is required for those images.
 - The database file is generated locally and is excluded from Git; sample data is inserted automatically.
 - Run the app with `python app.py` from the project directory.
+=======
+# Ecommerce-Web-Project-Using-Flask
+Ecommerce Web Project Using Flask, Python, SQLite
+>>>>>>> f9596ecd1ffcb8b3857878a5256006ac4eebebfc
